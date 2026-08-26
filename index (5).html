@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elva Zevallos — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F0EBE1;
+    --paper-card: #FAF7F1;
+    --ink: #241E2C;
+    --ink-soft: #5C5266;
+    --pine: #5B3A54;
+    --pine-deep: #3F2839;
+    --ochre: #C79A27;
+    --sage: #A0958E;
+    --line: #DDD3C4;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', serif; margin: 0; color: var(--ink); }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(239,241,236,0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px;
+  }
+  .nav-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; }
+  .nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.92rem; color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--pine); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--pine); margin-bottom: 18px; display: block;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem); font-weight: 600; line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: italic; color: var(--pine); }
+  .hero p.lede {
+    margin-top: 22px; font-size: 1.08rem; color: var(--ink-soft); max-width: 46ch;
+  }
+  .cta-row { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: var(--radius);
+    font-size: 0.92rem; font-weight: 500; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary { background: var(--pine); color: #fff; }
+  .btn-primary:hover { background: var(--pine-deep); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--pine); color: var(--pine); }
+
+  /* Signature chart */
+  .chart-card {
+    background: var(--paper-card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 24px 24px 18px;
+  }
+  .chart-card .chart-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .chart-card .chart-label strong { color: var(--ink); font-size: 0.78rem; }
+  #timeline-svg { width: 100%; height: auto; display: block; }
+  .milestone-dot { fill: var(--ochre); }
+  .milestone-note {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; fill: var(--ink-soft);
+  }
+  .chart-footnote {
+    margin-top: 12px; font-size: 0.78rem; color: var(--sage); font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* SECTION shared */
+  section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .section-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 44px; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; color: var(--sage); font-size: 0.85rem; }
+  .section-head h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; }
+
+  /* STORY / TIMELINE */
+  .timeline { position: relative; margin-left: 6px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--line);
+  }
+  .t-item { position: relative; padding-left: 34px; padding-bottom: 36px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before {
+    content: ''; position: absolute; left: 0; top: 4px; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--pine);
+  }
+  .t-when { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--pine); display: block; margin-bottom: 4px; }
+  .t-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; }
+  .t-desc { color: var(--ink-soft); font-size: 0.95rem; max-width: 60ch; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+  }
+  .skill-cell {
+    background: var(--paper-card); padding: 20px 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .skill-cell .cell-ref { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--sage); }
+  .skill-cell .cell-name { font-weight: 500; font-size: 0.95rem; }
+
+  /* PROJECTS */
+  .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .project-card {
+    background: var(--paper-card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px; display: flex; flex-direction: column; gap: 14px;
+  }
+  .project-tag {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--pine);
+  }
+  .project-card h3 { font-size: 1.15rem; font-weight: 600; }
+  .project-card p { color: var(--ink-soft); font-size: 0.92rem; margin: 0; }
+  .project-meta {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line);
+  }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--ink-soft);
+    background: var(--paper); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--line);
+  }
+
+  /* WHY HIRE / TRANSFERABLE */
+  .translate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .translate-col h3 {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--sage); font-weight: 500; margin-bottom: 18px;
+  }
+  .translate-row {
+    padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 0.98rem;
+  }
+  .translate-row:last-child { border-bottom: none; }
+  .arrow-row {
+    display: flex; align-items: center; gap: 14px; padding: 10px 0;
+  }
+  .arrow-row .from { color: var(--ink-soft); font-size: 0.95rem; }
+  .arrow-row .arrow { color: var(--ochre); font-family: 'IBM Plex Mono', monospace; }
+  .arrow-row .to { font-weight: 500; }
+
+  /* CONTACT / FOOTER */
+  footer.site {
+    padding: 72px 0 40px;
+  }
+  .contact-inner { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; }
+  .contact-inner h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); max-width: 16ch; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .contact-links a { text-decoration: none; font-size: 0.98rem; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .contact-links a:hover { border-color: var(--pine); color: var(--pine); }
+  .fine-print {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 0.8rem; color: var(--sage); font-family: 'IBM Plex Mono', monospace;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .project-grid { grid-template-columns: 1fr; }
+    .translate-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .btn-primary:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-inner">
+    <span class="nav-name">Elva Zevallos</span>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Data Analyst — SQL · Python · Tableau</span>
+      <h1>I built a career around <em>evidence</em>, on a schedule that didn't have room to spare.</h1>
+      <p class="lede">Two years ago I was reading spreadsheets to double-check invoices. Today I use them to find the answer before anyone asks the question. Eleven months, one certification, three real projects, zero semesters off — because that wasn't an option, and it turned out not to be a requirement either.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="#" download>Download résumé</a>
+      </div>
+    </div>
+    <div class="chart-card" data-reveal>
+      <div class="chart-label"><span>Skill confidence · self-rated</span><strong>11-month build</strong></div>
+      <svg id="timeline-svg" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line chart showing self-rated data skill confidence climbing from month 0 to month 11, with milestones for first SQL query, first freelance project, certification, and first job offer">
+        <line x1="30" y1="20" x2="30" y2="180" stroke="#D7DBD2" stroke-width="1"/>
+        <line x1="30" y1="180" x2="440" y2="180" stroke="#D7DBD2" stroke-width="1"/>
+        <path d="M30,172 C 90,168 110,150 140,140 C 180,128 200,110 230,95 C 270,80 290,70 320,55 C 360,45 400,32 430,25"
+              fill="none" stroke="#2E5339" stroke-width="2.5"/>
+        <circle class="milestone-dot" cx="140" cy="140" r="4"/>
+        <text class="milestone-note" x="120" y="128">first SQL query</text>
+        <circle class="milestone-dot" cx="230" cy="95" r="4"/>
+        <text class="milestone-note" x="212" y="83">cert. finished</text>
+        <circle class="milestone-dot" cx="320" cy="55" r="4"/>
+        <text class="milestone-note" x="270" y="43">first client project</text>
+        <circle class="milestone-dot" cx="430" cy="25" r="4"/>
+        <text class="milestone-note" x="368" y="15">job offer</text>
+        <text x="30" y="200" class="milestone-note" fill="#8FA093">mo. 0</text>
+        <text x="410" y="200" class="milestone-note" fill="#8FA093">mo. 11</text>
+      </svg>
+      <div class="chart-footnote">// the same tool that plots this plots quarterly revenue just as easily</div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>How the switch actually happened</h2></div>
+    <div class="timeline">
+      <div class="t-item" data-reveal>
+        <span class="t-when">Month 0</span>
+        <div class="t-title">Decided, on purpose, not by accident</div>
+        <div class="t-desc">Left a retail management role that had no path forward. Picked data analytics because it rewarded precision and pattern-finding — things I was already doing daily, just not on a payroll that recognized it.</div>
+      </div>
+      <div class="t-item" data-reveal>
+        <span class="t-when">Month 2</span>
+        <div class="t-title">Traded evenings for SQL</div>
+        <div class="t-desc">Studied in 40-minute blocks after bedtime. No bootcamp schedule fit a single-income household, so I built my own — free resources, one paid course, and a lot of repetition.</div>
+      </div>
+      <div class="t-item" data-reveal>
+        <span class="t-when">Month 6</span>
+        <div class="t-title">First real dataset, first real client</div>
+        <div class="t-desc">Cleaned and analyzed sales data for a friend's small business, for free, to build a portfolio piece that wasn't a tutorial exercise.</div>
+      </div>
+      <div class="t-item" data-reveal>
+        <span class="t-when">Month 9</span>
+        <div class="t-title">Certification, plus two more projects</div>
+        <div class="t-desc">Completed a data analytics certificate and shipped two additional case studies — a churn analysis and a dashboard rebuild — to prove the first project wasn't a fluke.</div>
+      </div>
+      <div class="t-item" data-reveal>
+        <span class="t-when">Month 11</span>
+        <div class="t-title">Ready for the job, not just the interview</div>
+        <div class="t-desc">Now looking for a first analyst role where the questions are real and the deadlines are, too — which, frankly, is the part I'm most prepared for.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>Tools I reach for</h2></div>
+    <div class="skills-grid">
+      <div class="skill-cell"><span class="cell-ref">A1</span><span class="cell-name">SQL</span></div>
+      <div class="skill-cell"><span class="cell-ref">B1</span><span class="cell-name">Python (pandas)</span></div>
+      <div class="skill-cell"><span class="cell-ref">C1</span><span class="cell-name">Excel / Sheets</span></div>
+      <div class="skill-cell"><span class="cell-ref">D1</span><span class="cell-name">Tableau</span></div>
+      <div class="skill-cell"><span class="cell-ref">A2</span><span class="cell-name">Power BI</span></div>
+      <div class="skill-cell"><span class="cell-ref">B2</span><span class="cell-name">Statistics</span></div>
+      <div class="skill-cell"><span class="cell-ref">C2</span><span class="cell-name">Data cleaning</span></div>
+      <div class="skill-cell"><span class="cell-ref">D2</span><span class="cell-name">Storytelling w/ data</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Recent work</h2></div>
+    <div class="project-grid">
+      <div class="project-card" data-reveal>
+        <span class="project-tag">Case study</span>
+        <h3>Small business sales analysis</h3>
+        <p>Cleaned 18 months of messy point-of-sale exports and identified which product lines were quietly losing money. Recommendation cut slow-moving inventory by 22%.</p>
+        <div class="project-meta"><span class="chip">SQL</span><span class="chip">Sheets</span><span class="chip">Tableau</span></div>
+      </div>
+      <div class="project-card" data-reveal>
+        <span class="project-tag">Case study</span>
+        <h3>Customer churn model</h3>
+        <p>Built a simple churn-risk score from subscription data using Python, flagging at-risk accounts two months before cancellation on average.</p>
+        <div class="project-meta"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">Stats</span></div>
+      </div>
+      <div class="project-card" data-reveal>
+        <span class="project-tag">Case study</span>
+        <h3>Ops dashboard rebuild</h3>
+        <p>Replaced a five-tab spreadsheet report with a single live dashboard, cutting a weekly two-hour manual report down to a five-minute refresh.</p>
+        <div class="project-meta"><span class="chip">Power BI</span><span class="chip">SQL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>What the last few years actually trained</h2></div>
+    <div class="translate-grid">
+      <div class="translate-col">
+        <h3>Built managing a household solo</h3>
+        <div class="arrow-row"><span class="from">Running a fixed budget with a variable schedule</span></div>
+        <div class="arrow-row"><span class="from">Making a call fast when new information changes the plan</span></div>
+        <div class="arrow-row"><span class="from">Negotiating with schools, landlords, insurance, on someone else's timeline</span></div>
+        <div class="arrow-row"><span class="from">Getting a household of competing priorities to agree on one plan</span></div>
+      </div>
+      <div class="translate-col">
+        <h3>Shows up as</h3>
+        <div class="arrow-row"><span class="arrow">→</span><span class="to">Working within resource constraints without missing deadlines</span></div>
+        <div class="arrow-row"><span class="arrow">→</span><span class="to">Re-prioritizing analysis when stakeholders change the ask mid-project</span></div>
+        <div class="arrow-row"><span class="arrow">→</span><span class="to">Stakeholder communication under time pressure</span></div>
+        <div class="arrow-row"><span class="arrow">→</span><span class="to">Turning conflicting requirements into one clear recommendation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site" id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <h2>Hiring for an analyst role? Let's talk.</h2>
+      <div class="contact-links">
+        <a href="mailto:hello@elvazevallos.example">hello@elvazevallos.example</a>
+        <a href="#">linkedin.com/in/elvazevallos</a>
+        <a href="#">github.com/elvazevallos</a>
+      </div>
+    </div>
+    <div class="fine-print">
+      <span>© 2026 Elva Zevallos</span>
+      <span>built with SQL-brain, coffee, and one very good kid</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  els.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
