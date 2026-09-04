@@ -80,10 +80,10 @@ Plan your days, sort your priorities out loud, and hand one recurring personal t
 
 Learn how to use AI securely so you can keep sensitive info safe.
 
-- [ ] Work safely within your company's constraints
-- [ ] Manage permissions and access
-- [ ] Classify your data before you use it
-- [ ] Sanitize your inputs
+- [X] Work safely within your company's constraints
+- [X] Manage permissions and access
+- [X] Classify your data before you use it
+- [X] Sanitize your inputs
 
 ---
 
@@ -91,8 +91,8 @@ Learn how to use AI securely so you can keep sensitive info safe.
 
 Stay accurate and accountable in everything AI helps you make.
 
-- [ ] Use AI honestly
-- [ ] Fact-check AI outputs
+- [X] Use AI honestly
+- [X] Fact-check AI outputs
 
 ---
 
@@ -100,18 +100,18 @@ Stay accurate and accountable in everything AI helps you make.
 
 Pick the right model for each job and budget your AI spend with intent.
 
-- [ ] Pick the right model for each job
-- [ ] Budget your AI spend with intent
+- [X] Pick the right model for each job
+- [X] Budget your AI spend with intent
 
 ---
 
 ## Additional Assignments: 
 
-- [ ] Post your AI Builder Certificate in the discussion here: https://github.com/Tech-Moms/data_ai_fall_2026/discussions/6
-- [ ] Review the Data Analytics Resource repository
-- [ ] Add teachers & fellow students on linkedin
-- [ ] Continue editing your Claude Artifact from Saturday's class via prompts or VSCode and Publish on GitHub as a GitHub page (ask AI for help as needed!)
-- [ ] Watch these 2 videos about Data Foundations (with your kids if applicable!) 
+- [X] Post your AI Builder Certificate in the discussion here: https://github.com/Tech-Moms/data_ai_fall_2026/discussions/6
+- [X] Review the Data Analytics Resource repository
+- [X] Add teachers & fellow students on linkedin
+- [X] Continue editing your Claude Artifact from Saturday's class via prompts or VSCode and Publish on GitHub as a GitHub page (ask AI for help as needed!)
+- [X] Watch these 2 videos about Data Foundations (with your kids if applicable!) 
 * [Data and Graphs](https://www.youtube.com/watch?v=hcgThf5mv38&list=PLMx7ftQxw8EEuy6izMKb93fOg6fIVJWlI&index=2&t=1s)
 * [Mean, Median, and Mode](https://www.youtube.com/watch?v=B1HEzNTGeZ4&list=PLMx7ftQxw8EEuy6izMKb93fOg6fIVJWlI&index=2)
 
