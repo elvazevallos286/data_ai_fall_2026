@@ -104,5 +104,5 @@ Videos: [Create a Scorecard](https://www.loom.com/share/8d630ef049494b209de63a2e
 
 ### Last Step: Ship it!
 
-- [ ] Drop a screenshot of the dashboard, along with a URL link and 3 bullet points of insights into this discussion thread: https://github.com/Tech-Moms/data_ai_fall_2026/discussions/17
-- [ ] Do a little happy dance - you’re crushing it!
+- [x] Drop a screenshot of the dashboard, along with a URL link and 3 bullet points of insights into this discussion thread: https://github.com/Tech-Moms/data_ai_fall_2026/discussions/17
+- [x] Do a little happy dance - you’re crushing it!
